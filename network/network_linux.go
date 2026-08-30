@@ -28,6 +28,7 @@ func parseNmcliLine(line string) []string {
 	return parts
 }
 
+// Scan the available networks function
 func ScanNetworks() []Network {
 	out, err := exec.Command("nmcli", "-t", "-f", "IN-USE,SSID,SIGNAL,SECURITY", "device", "wifi", "list").Output()
 	if err != nil {

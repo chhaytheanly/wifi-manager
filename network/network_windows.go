@@ -2,8 +2,8 @@ package network
 
 import (
 	"fmt"
-	"os/exec"
 	"os"
+	"os/exec"
 	"sort"
 	"strconv"
 	"strings"
@@ -71,7 +71,7 @@ func ScanNetworks() []Network {
 			}
 		}
 	}
-	
+
 	if currentNetwork != nil && currentNetwork.SSID != "" {
 		if !seen[currentNetwork.SSID] {
 			nets = append(nets, *currentNetwork)
@@ -102,7 +102,6 @@ func HasSavedConnection(ssid string) bool {
 			parts := strings.SplitN(line, ":", 2)
 			if len(parts) == 2 {
 				profile := strings.TrimSpace(parts[1])
-				// Handle Windows \r
 				profile = strings.TrimRight(profile, "\r")
 				if profile == ssid {
 					return true
@@ -117,7 +116,7 @@ func Connect(ssid, password string, useSaved bool) error {
 	if useSaved {
 		return exec.Command("netsh", "wlan", "connect", "name=\""+ssid+"\"").Run()
 	}
-	
+
 	if password != "" {
 		xmlProfile := fmt.Sprintf(`<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
